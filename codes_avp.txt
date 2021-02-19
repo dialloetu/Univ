@@ -1,0 +1,164 @@
+//============================================================================
+// Name        : ProjetAVP.cpp
+// Author      : diallo
+// Version     :
+// Copyright   : Your copyright notice
+// Description : editionDistance in C++, Ansi-style (Reccursif)
+//============================================================================
+
+#include <iostream>
+using namespace std;
+
+inline int32_t MIN(int32_t a, int32_t b, int32_t c) { return((a) < (b) && (a) < (c)  ? a : ((b) < (c) ? b : c)); }
+
+int editionDistance(string str1, string str2, int32_t m, int32_t n)
+{
+
+    if (m == 0)
+        return n;
+
+    if (n == 0)
+        return m;
+
+    if (str1[m - 1] == str2[n - 1])
+        return editionDistance(str1, str2, m - 1, n - 1);
+
+    return 1
+           + MIN(editionDistance(str1, str2, m, n - 1),
+                 editionDistance(str1, str2, m - 1, n),
+                 editionDistance(str1, str2, m - 1, n - 1)
+             );
+}
+
+int main()
+{
+
+    string str1 = "paul";
+    string str2 = "pauline";
+
+    cout << editionDistance(str1, str2, str1.length(), str2.length());
+
+    return 0;
+}
+
+
+
+=============================================================================================
+
+
+//============================================================================
+// Name        : ProjetAVP.cpp
+// Author      : diallo
+// Version     :
+// Copyright   : Your copyright notice
+// Description : editionDistance in C++, Ansi-style
+//============================================================================
+
+#include <iostream>
+using namespace std;
+
+inline int32_t MIN(int32_t a, int32_t b, int32_t c) { return((a) < (b) && (a) < (c)  ? a : ((b) < (c) ? b : c)); }
+
+int editionDistance(string str1, string str2, int m, int n)
+{
+    // tableau pour stocker les résultats des sous-problèmes
+    int dp[m + 1][n + 1];
+
+    for (int i = 0; i <= m; i++)
+    {
+        for (int j = 0; j <= n; j++)
+        {
+            // Si la première chaîne est vide, la seule l'option est d'insère tous les caractères de la deuxième chaîne
+            if (i == 0)
+                dp[i][j] = j;
+            else if (j == 0)
+                dp[i][j] = i;
+
+            // Si la deuxième chaîne est vide, seule l'option est de supprime tous les caractères de la deuxième chaîne
+            else if (str1[i - 1] == str2[j - 1])
+                dp[i][j] = dp[i - 1][j - 1];
+
+            else
+                dp[i][j]
+                    = 1 + MIN(dp[i][j - 1],       // Insertion
+                            dp[i - 1][j],          // Suppression
+                            dp[i - 1][j - 1]);    // substitution
+        }
+    }
+    return dp[m][n];
+}
+
+
+int main()
+{
+
+    string str1 = "paul";
+    string str2 = "pauline";
+
+    cout << editionDistance(str1, str2, str1.length(),
+                       str2.length());
+
+    return 0;
+}
+
+
+===============================================================================================
+
+
+
+//============================================================================
+// Name        : ProjetAVP.cpp
+// Author      : diallo
+// Version     :
+// Copyright   : Your copyright notice
+// Description : editionDistance in C++, Ansi-style
+//============================================================================
+
+
+#include <iostream>
+#include <bits/stdc++.h>
+
+using namespace std;
+
+inline int32_t MIN2(int32_t a, int32_t b) { return((a) < (b))  ? a : b; }
+
+
+void editionDistanceV2(string str1, string str2)
+{
+    int longStr1 = str1.length();
+    int longStr2 = str2.length();
+
+    int TAB[2][longStr1 + 1]; //Créer un tableau DP pour mémoriser le résultat des calculs précédents
+
+    memset(TAB, 0, sizeof TAB); // Pour remplir le tableau TAB avec 0
+
+    // Condition de base lorsque la deuxième chaîne est vide, nous supprimons tous les caractères
+    for (int i = 0; i <= longStr1; i++)
+        TAB[0][i] = i;
+
+    // Commencez à remplir le tab. Cette boucle s'exécute pour chaque caractère de la deuxième chaîne
+    for (int i = 1; i <= longStr2; i++)
+    {
+        for (int j = 0; j <= longStr1; j++)
+        {
+            if (j == 0)
+                TAB[i % 2][j] = i;
+            else if (str1[j - 1] == str2[i - 1])
+                TAB[i % 2][j] = TAB[(i - 1) % 2][j - 1];
+            else
+                TAB[i % 2][j] = 1 + MIN2( TAB[(i - 1) % 2][j], MIN2(TAB[i % 2][j - 1], TAB[(i - 1) % 2][j - 1]));
+        }
+    }
+
+    // une fois terminé, on remplit le tableau TAB en fonction de la valeur de longStr2
+    cout << TAB[longStr2 % 2][longStr1] << endl;
+}
+
+
+int main()
+{
+    string str1 = "paul";
+    string str2 = "pauline";
+    editionDistanceV2(str1, str2);
+    return 0;
+}
