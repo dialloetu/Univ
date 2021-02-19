@@ -1,0 +1,30 @@
+ 
+
+ 1937  tar xvzf ~/Downloads/omnetpp-5.6.2-src-linux.tgz
+ 1941  cd omnetpp-5.6.2/
+ 1945  sudo apt-get update && sudo apt-get install build-essential
+ 1947  sudo apt-get install bison
+ 1949  sudo apt-get install Flex
+ 1951  sudo apt-get install build-essential gcc g++ bison flex perl tcl-dev tk-dev blt libxml2-dev zlib1g-dev doxygen graphviz openmpi-bin libopenmpi-dev
+ 1955  sudo apt-get install qtcreator
+ 1956  sudo apt-get install qt5-default
+ 1966  sudo apt-get install openscenegraph
+ 1968  export PATH=$PATH:/nom_repertoire_installation/omnetpp-5.6.2/bin
+ 1975  sudo apt-add-repository universe
+ 1976  sudo apt-get update
+ 1977  sudo apt-get install libopenscenegraph-dev
+ 1979  sudo apt-get install osgearth-2.7
+ 1980  sudo apt-get install osgearth
+ 1981  sudo apt-get install osgEarth
+ 1983  sudo apt-get install libgeos-dev
+ 1984  . setenv
+ 1986  sudo add-apt-repository ppa:ubuntugis/ppa
+ 1987  sudo apt install libosgearth-dev
+ 1988  ./configure
+ 1989  make
+ 1990  cd samples/dyna
+ 1991  ./dyna
+ 1992  omnetpp
+ 1994  make install-menu-item
+ 1995  make install-desktop-icon
+
